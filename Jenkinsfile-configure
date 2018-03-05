@@ -34,8 +34,8 @@ podTemplate(label: label, containers: [
             }
             stage('Build/push helm chart') {
                 container('helm') {
-                    sh "yum update"
-                    sh "yum install git"
+                    sh "apk update"
+                    sh "apk install git"
                     sh "echo building helm chart from alpha-global-helm to alpha-market-helm"
                     sh "helm init"
                     sh "helm plugin install https://github.com/hypnoglow/helm-s3.git"
