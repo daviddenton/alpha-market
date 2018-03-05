@@ -35,8 +35,8 @@ podTemplate(label: label, containers: [
             stage('Build/push helm chart') {
                 container('helm') {
                     withAWS(credentials: 'aws_credentials') {
-                        // sh "mkdir ~/.aws"
-                        // sh "echo '[default]\r\nregion=${region}' > ~/.aws/config"
+                        sh "mkdir ~/.aws"
+                        sh "echo '[default]\r\nregion=${region}' > ~/.aws/config"
                         sh "apk update"
                         sh "apk add git make bash"
                         sh "helm init"
