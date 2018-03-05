@@ -13,7 +13,6 @@ podTemplate(label: label, containers: [
                   extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/daviddenton/alpha-market']]])
 
         withCredentials([
-                string(credentialsId: 'aws_ecr_password', variable: 'awsEcrPassword'),
                 string(credentialsId: 'aws_account_number', variable: 'awsAccountNumber')
         ]) {
             stage('Deploy to k8s') {
