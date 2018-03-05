@@ -34,12 +34,14 @@ podTemplate(label: label, containers: [
             }
             stage('Build/push helm chart') {
                 container('helm') {
-                    sh "apk update"
-                    sh "apk add git make bash"
-                    sh "helm init"
-                    sh "helm plugin install https://github.com/hypnoglow/helm-s3.git"
-                    sh "helm s3 init s3://phud-alpha-helm-repo/charts"
-                    sh "helm repo add phud-alpha-helm-repo s3://phud-alpha-helm-repo/charts"
+                    withCredentials([string(credentialsId: 'aws_account_number', variable: 'awsAccountNumber')]) {
+                        sh "apk update"
+                        sh "apk add git make bash"
+                        sh "helm init"
+                        sh "helm plugin install https://github.com/hypnoglow/helm-s3.git"
+                        sh "helm s3 init s3://phud-alpha-helm-repo/charts"
+                        sh "helm repo add phud-alpha-helm-repo s3://phud-alpha-helm-repo/charts"
+                    }
                 }
             }
         }
