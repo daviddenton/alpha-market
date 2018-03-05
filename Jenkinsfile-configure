@@ -37,7 +37,6 @@ podTemplate(label: label, containers: [
                     withCredentials([string(credentialsId: 'aws_account_number', variable: 'awsAccountNumber')]) {
                         sh "mkdir ~/.aws"
                         sh "echo '[default]\r\nregion=${region}' > ~/.aws/config"
-                        sh "cat "
                         sh "apk update"
                         sh "apk add git make bash"
                         sh "helm init"
