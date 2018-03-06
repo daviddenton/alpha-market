@@ -35,6 +35,7 @@ podTemplate(label: label, containers: [
             stage('Build/push helm chart') {
                 container('helm') {
                     withCredentials([string(credentialsId: 'github_token', variable: 'githubToken')]) {
+                        sh "apk update"
                         sh "apk add git"
                         sh "git clone https://alphauser:${githubToken}@github.com/daviddenton/alpha-charts"
                         sh "helm package alpha-market/alpha-market-helm"
