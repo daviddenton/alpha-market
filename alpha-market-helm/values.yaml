@@ -1,3 +1,4 @@
-imageRegistry: "870594606895.dkr.ecr.eu-west-2.amazonaws.com"
-dockerTag: "latest"
-pullPolicy: "Always"
+alpha-global-helm:
+  imageRegistry: "870594606895.dkr.ecr.eu-west-2.amazonaws.com"
+  dockerTag: "latest"
+  pullPolicy: "Always"
