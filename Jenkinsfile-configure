@@ -9,11 +9,10 @@ def buildDocker(region, version) {
     stage('Build/push alpha-market-config') {
         container('docker') {
             withCredentials([string(credentialsId: 'aws_account_number', variable: 'awsAccountNumber')]) {
-                def imageTag = "${awsAccountNumber}.dkr.ecr.${region}.amazonaws.com/alpha-market-config:${version}"
-                sh "docker build -t ${imageTag} alpha-market-config/."
-
                 withAWS(credentials: 'aws_credentials') {
                     sh ecrLogin()
+                    def imageTag = "${awsAccountNumber}.dkr.ecr.${region}.amazonaws.com/alpha-market-config:${version}"
+                    sh "docker build -t ${imageTag} alpha-market-config/."
                     sh "docker push ${imageTag}"
                 }
             }
