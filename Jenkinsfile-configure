@@ -34,15 +34,13 @@ podTemplate(label: label, containers: [
             }
             stage('Build/push helm chart') {
                 container('helm') {
-                    withAWS(credentials: 'aws_credentials') {
-                        sh "mkdir ~/.aws"
-                        sh "echo '[default]\r\nregion=${region}' > ~/.aws/config"
-                        sh "apk update"
-                        sh "apk add git make bash"
-                        sh "helm init"
-                        sh "helm plugin install https://github.com/hypnoglow/helm-s3.git"
-                        sh "helm s3 init s3://phud-alpha-helm-repo/charts"
-                        sh "helm repo add phud-alpha-helm-repo s3://phud-alpha-helm-repo/charts"
+                    withCredentials([string(credentialsId: 'github_token', variable: 'githubToken')]) {
+                        sh "apk add git"
+                        sh "git clone https://alphauser:${githubToken}@github.com/daviddenton/alpha-charts"
+                        sh "helm package alpha-market/alpha-market-helm"
+                        sh "mv alpha-market/alpha-market-helm/*.tgz alpha-charts"
+                        sh "helm repo index alpha-charts"
+                        sh "cd alpha-charts && git add . && git commit -am 'Auto Chart install' && git push"
                     }
                 }
             }
