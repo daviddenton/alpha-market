@@ -15,9 +15,8 @@ podTemplate(label: label, containers: [
         stage('Deploy to k8s') {
             container('helm') {
                 sh "helm init"
-                sh "helm plugin install https://github.com/hypnoglow/helm-s3.git"
-                sh "helm repo add phud-alpha-helm-repo s3://phud-alpha-helm-repo/charts"
-                sh "helm upgrade --install alpha-market-app phud-alpha-helm-repo/alpha-market-helm"
+                sh "helm repo add alpha-helm-repo https://daviddenton.github.io/alpha-charts"
+                sh "helm upgrade --install alpha-market-app alpha-helm-repo/alpha-market-helm"
             }
         }
     }
