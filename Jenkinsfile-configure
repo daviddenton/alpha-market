@@ -31,6 +31,7 @@ def publishHelm() {
                 sh "git config --global user.name Auto"
                 sh "git clone https://alphauser:${githubToken}@github.com/daviddenton/alpha-charts"
                 sh "helm init"
+                sh "helm repo add https://daviddenton.github.io/alpha-charts"
                 sh "helm dependency update alpha-market-helm"
                 sh "helm package alpha-market-helm"
                 sh "mv *.tgz alpha-charts"
