@@ -1,4 +1,4 @@
 dependencies:
-  - name: alpha-global-config
-  - version: ">0.0.0"
-  - repository: https://daviddenton.github.io/alpha-charts
+  - name: alpha-global-helm
+    version: ">0.0.0"
+    repository: "@alpha-charts"
